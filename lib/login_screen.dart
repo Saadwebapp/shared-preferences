@@ -19,14 +19,10 @@ class _LogInScreenState extends State<LogInScreen> {
     "student",
     "teacher",
   ];
-  String? _selectedUser = "";
-
+  String selectedUser = "admin";
 
   @override
   Widget build(BuildContext context) {
-    // userType() {
-    //   _selectedUser = usertype[0];
-    // }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -68,16 +64,16 @@ class _LogInScreenState extends State<LogInScreen> {
               height: 20,
             ),
             DropdownButton(
-              value: _selectedUser,
-              items: usertype.map((e) {
+              value: selectedUser,
+              items: usertype.map((String items) {
                 return DropdownMenuItem(
-                  child: Text(e),
-                  value: e,
+                  value: items,
+                  child: Text(items),
                 );
               }).toList(),
-              onChanged: (value) {
+              onChanged: (String? newValue) {
                 setState(() {
-                  _selectedUser = value;
+                  selectedUser = newValue!;
                 });
               },
             ),
