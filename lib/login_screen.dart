@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:share_preference/admin_screen.dart';
 import 'package:share_preference/home_page.dart';
 import 'package:share_preference/student_screen.dart';
+import 'package:share_preference/teacher_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -15,11 +17,11 @@ class _LogInScreenState extends State<LogInScreen> {
   final Passwordcontroller = TextEditingController();
   final agecontroller = TextEditingController();
   final List<String> usertype = [
-    "admin",
     "student",
     "teacher",
+    "admin",
   ];
-  String selectedUser = "admin";
+  String selectedUser = "student";
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +65,21 @@ class _LogInScreenState extends State<LogInScreen> {
             SizedBox(
               height: 20,
             ),
-            DropdownButton(
-              value: selectedUser,
+            // DropdownButton(
+            //   value: selectedUser,
+            //   items: usertype.map((String items) {
+            //     return DropdownMenuItem(
+            //       value: items,
+            //       child: Text(items),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     setState(() {
+            //       selectedUser = newValue!;
+            //     });
+            //   },
+            // ),
+            DropdownButtonFormField(value: selectedUser,
               items: usertype.map((String items) {
                 return DropdownMenuItem(
                   value: items,
@@ -75,8 +90,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 setState(() {
                   selectedUser = newValue!;
                 });
-              },
-            ),
+              },),
             SizedBox(
               height: 40,
             ),
@@ -86,10 +100,23 @@ class _LogInScreenState extends State<LogInScreen> {
 
                 sp.setString("email", emailcontroller.text.toString());
                 sp.setString("age", agecontroller.text.toString());
+
+                sp.setString("usertype", selectedUser);
                 sp.setBool("isLogin", true);
-                sp.setString("usertype", "student");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StudentScreen()));
+                print(sp.getString("usertype"));
+                if (sp.getString("usertype") == usertype[0]) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => StudentScreen()));
+                }
+                else if (sp.getString("usertype") == usertype[1]) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TeacherScreen()));
+                }
+
+               else if(sp.getString("usertype") == usertype[2]) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AdminScreen()));
+                };
               },
               child: Container(
                 height: 50,
