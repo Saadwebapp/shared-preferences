@@ -29,17 +29,17 @@ class _SplashScreenState extends State<SplashScreen> {
     String type = sp.getString("usertype")?? "";
     if (isLogin) {
       if(type == "student") {
-        Timer(Duration(seconds: 5), () {
+        Timer(Duration(seconds: 3), () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => StudentScreen()));
         });
       } else if (type == "teacher") {
-        Timer(Duration(seconds: 5), () {
+        Timer(Duration(seconds: 3), () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => TeacherScreen()));
         });
       }else if (type == "admin") {
-        Timer(Duration(seconds: 5), () {
+        Timer(Duration(seconds: 3), () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AdminScreen()));
         });
@@ -58,8 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Image(
         height: double.infinity,
         fit: BoxFit.fitHeight,
-        image: NetworkImage(
-            "https://images.pexels.com/photos/2695618/pexels-photo-2695618.jpeg?cs=srgb&dl=pexels-vlad-che%C8%9Ban-2695618.jpg&fm=jpg&_gl=1*v42g2y*_ga*NzMxMzYyMjMwLjE2NjMwNTIzNjU.*_ga_8JE65Q40S6*MTY2NjY4ODk5OC4xNC4xLjE2NjY2ODk4MTUuMC4wLjA."),
+        image: AssetImage("assets/img1.webp"),
       ),
     );
   }
